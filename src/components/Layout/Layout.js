@@ -14,14 +14,24 @@ class Layout extends Component {
     this.setState({ showSideDrawer: false });
   };
 
-  sideDrawerOpenHandler = () => {
-    this.setState({showSideDrawer: true});
-  };
+  // My solution to open side drawer by clicking Menu:
+  // sideDrawerOpenHandler = () => {
+  //   this.setState({showSideDrawer: true});
+  // };
+
+// lecture's solution:
+sideDrawerToggleHandler = () => {
+  this.setState((prevState) => {
+    return {showSideDrawer: !prevState.showSideDrawer};
+  });
+}
+
 
   render() {
     return (
       <Aux>
-        <Toolbar clicked={this.sideDrawerOpenHandler} />
+        {/* <Toolbar clicked={this.sideDrawerOpenHandler} /> */}
+        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
         <SideDrawer
           open={this.state.showSideDrawer}
           closed={this.sideDrawerClosedHandler}
