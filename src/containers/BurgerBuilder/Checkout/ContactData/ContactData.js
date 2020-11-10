@@ -67,9 +67,14 @@ class ContactData extends Component {
     event.preventDefault();
     // console.log(this.props.ingredients);
     this.setState({ loading: true });
+    const formData = {};
+    for (let formElementIdentifier in this.state.orderForm) {
+      formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+    }
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
+      orderData: formData,
     };
     axios
       .post("/orders.json", order)
@@ -82,6 +87,18 @@ class ContactData extends Component {
       });
   };
 
+  inputChangedHandler = (event, inputIdentifire) => {
+    // console.log(event.target.value);
+    const updatedOrderForm = {
+      ...this.state.orderForm,
+    };
+
+    const updatedFormElement = { ...updatedOrderForm[inputIdentifire] };
+    updatedFormElement.value = event.target.value;
+    updatedOrderForm[inputIdentifire] = updatedFormElement;
+    this.setState({orderForm: updatedOrderForm});
+  };
+
   render() {
     const formElementsArray = [];
     for (let key in this.state.orderForm) {
@@ -91,7 +108,7 @@ class ContactData extends Component {
       });
     }
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {formElementsArray.map((formElement) => (
           <Input
             key={formElement.id}
@@ -101,9 +118,10 @@ class ContactData extends Component {
             // but in my code there was a warning message to change it this way.
             // value={formElement.config.value}
             value={formElement.config.defaultValue}
+            changed={(event) => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
-        <Button btnType="Success" clicked={this.orderHandler}>
+        <Button btnType="Success">
           ORDER
         </Button>
       </form>
