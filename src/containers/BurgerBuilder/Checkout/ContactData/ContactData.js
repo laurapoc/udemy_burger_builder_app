@@ -85,10 +85,13 @@ class ContactData extends Component {
           ],
         },
         value: "",
-        // this "validation" line does not exist in the lecturers code yet:
-        validation: {
-          required: false,
-        },
+        // // this "validation" line does not exist in the lecturers code yet:
+        // validation: {
+        //   required: false,
+        // },
+
+        // one proper way to fix error:
+        validation: {},
         valid: true,
       },
     },
@@ -122,6 +125,11 @@ class ContactData extends Component {
 
   checkValidity(value, rules) {
     let isValid = true;
+    // the second way to fix selecting dropdown error:
+    // if (!rules) {
+    //   return true;
+    // }
+
     if (rules.required) {
       isValid = value.trim() !== "" && isValid;
     }
