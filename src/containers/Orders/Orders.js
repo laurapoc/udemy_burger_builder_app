@@ -21,6 +21,7 @@ class Orders extends Component {
         this.setState({ loading: false, orders: fetchedOrders });
       })
       .catch((err) => {
+        console.log("error: ", err);
         this.setState({ loading: false });
       });
   }

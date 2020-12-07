@@ -84,10 +84,10 @@ class ContactData extends Component {
         elementConfig: {
           options: [
             { value: "fastest", displayValue: "Fastest" },
-            { value: "cheapeast", displayValue: "Cheapeast" },
+            { value: "cheapest", displayValue: "Cheapest" },
           ],
         },
-        value: "",
+        value: "fastest",
         // // this "validation" line does not exist in the lecturers code yet:
         // validation: {
         //   required: false,
@@ -171,9 +171,9 @@ class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             //in the lecture a value is signed to a {formElement.config.value},
-            // but in my code there was a warning message to change it this way.
+            // but in my code there was a warning message to change it this way:
             // value={formElement.config.value}
-            value={formElement.config.defaultValue}
+            value={formElement.config.value}
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
@@ -198,10 +198,14 @@ class ContactData extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("ORDER LOADING: ", state.order.loading);
   return {
-    ings: state.ingredients,
-    price: state.totalPrice,
-    loading: state.loading
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    // with this instructors example the order form doesn't work in the same way:
+    loading: state.order.loading
+    // with this solution it works in the same way as instructors example:
+    // loading: state.loading
   };
 };
 
