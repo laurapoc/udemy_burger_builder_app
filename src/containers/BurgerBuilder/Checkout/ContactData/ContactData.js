@@ -170,9 +170,6 @@ class ContactData extends Component {
             key={formElement.id}
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
-            //in the lecture a value is signed to a {formElement.config.value},
-            // but in my code there was a warning message to change it this way:
-            // value={formElement.config.value}
             value={formElement.config.value}
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
