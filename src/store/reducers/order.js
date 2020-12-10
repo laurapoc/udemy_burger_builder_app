@@ -1,5 +1,5 @@
 // import { purchaseInit } from "../actions";
-
+import axios from "axios";
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
@@ -43,12 +43,20 @@ const fetchOrdersSuccess = (state, action) => {
 };
 
 const fetchOrdersFail = (state, action) => {
-
+  console.log(updateObject());
+  axiosData();
   return updateObject(state, { loading: false });
 };
 
 
 
+const axiosData =  () => {
+  return axios.get("https://react-my-burger-f4065.firebaseio.com/orders.json")
+    
+    .catch(error => {
+      console.log(error.response.data.error);
+    })
+}
 
 
 const reducer = (state = initialState, action) => {
