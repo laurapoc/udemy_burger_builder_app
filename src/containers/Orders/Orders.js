@@ -9,11 +9,17 @@ import Modal from "../../components/UI/Modal/Modal";
 
 class Orders extends Component {
   componentDidMount() {
-    this.props.onFetchOrders();
+    this.props.onFetchOrders(this.props.token);
   }
 
   errorModalCancelHandler = () => {
-    this.props.history.replace("/auth");
+    this.props.history.push("/auth");
+    window.location.reload();
+    // reloads the "/auth" page.
+    // without reloading after authentication
+    // (if the location before was "/orders" with an error message),
+    // "orders" page comes together with the fail error message
+    // and in the background there is an order's list
   };
 
   render() {
@@ -53,12 +59,13 @@ const mapStateToProps = (state) => {
     orders: state.order.orders,
     loading: state.order.loading,
     error: state.order.error,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchOrders: () => dispatch(actions.fetchOrders()),
+    onFetchOrders: (token) => dispatch(actions.fetchOrders(token)),
   };
 };
 
