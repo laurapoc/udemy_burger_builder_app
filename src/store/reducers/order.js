@@ -1,4 +1,5 @@
 // import { purchaseInit } from "../actions";
+
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
@@ -42,8 +43,13 @@ const fetchOrdersSuccess = (state, action) => {
 };
 
 const fetchOrdersFail = (state, action) => {
+
   return updateObject(state, { loading: false });
 };
+
+
+
+
 
 const reducer = (state = initialState, action) => {
   console.log(action.type);
