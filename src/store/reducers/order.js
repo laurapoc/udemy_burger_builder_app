@@ -1,5 +1,5 @@
 // import { purchaseInit } from "../actions";
-import axios from "axios";
+// import axios from "axios";
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
@@ -7,6 +7,7 @@ const initialState = {
   orders: [],
   loading: false,
   purchased: false,
+  error: null,
 };
 
 const purhcaseInit = (state, action) => {
@@ -43,21 +44,20 @@ const fetchOrdersSuccess = (state, action) => {
 };
 
 const fetchOrdersFail = (state, action) => {
-  console.log(updateObject());
-  axiosData();
-  return updateObject(state, { loading: false });
+  console.log("reducer orders fail:");
+  // axiosData();
+  return updateObject(state, { loading: false, error: action.error });
 };
 
+// const axiosData = () => {
+//   return axios
+//     .get("https://react-my-burger-f4065.firebaseio.com/orders.json")
 
-
-const axiosData =  () => {
-  return axios.get("https://react-my-burger-f4065.firebaseio.com/orders.json")
-    
-    .catch(error => {
-      console.log(error.response.data.error);
-    })
-}
-
+//     .catch((error) => {
+//       console.log(error.response.data.error);
+//       return error.response.data.error;
+//     });
+// };
 
 const reducer = (state = initialState, action) => {
   console.log(action.type);
