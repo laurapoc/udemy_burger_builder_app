@@ -133,7 +133,6 @@ class ContactData extends Component {
     for (let inputIdentifire in updatedOrderForm) {
       formIsValid = updatedOrderForm[inputIdentifire].valid && formIsValid;
     }
-    console.log(formIsValid);
     this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
   };
 
@@ -177,7 +176,6 @@ class ContactData extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("ORDER LOADING: ", state.order.loading);
   return {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,

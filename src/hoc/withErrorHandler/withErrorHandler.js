@@ -11,7 +11,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
 
     // In this case, if using componentDidMount(),
     // in Orders.js error message does not appears
-    componentWillMount() {
+    componentWillMount_temp() {
       this.reqInterceptor = axios.interceptors.request.use((req) => {
         this.setState({ error: null });
         return req;
