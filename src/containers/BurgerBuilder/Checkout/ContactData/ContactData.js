@@ -8,6 +8,7 @@ import axios from "../../../../axios-orders";
 import Input from "../../../../components/UI/Input/Input";
 import withErrorHandler from "../../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../../store/actions/index";
+import { updateObject } from "../../../../shared/utility";
 
 class ContactData extends Component {
   state = {
@@ -111,7 +112,7 @@ class ContactData extends Component {
       ingredients: this.props.ings,
       price: this.props.price,
       orderData: formData,
-      userId: this.props.userId
+      userId: this.props.userId,
     };
 
     this.props.onOrderBurger(order, this.props.token);
@@ -137,15 +138,13 @@ class ContactData extends Component {
   }
 
   inputChangedHandler = (event, inputIdentifire) => {
-    const updatedOrderForm = {
-      ...this.state.orderForm,
-    };
+    const updatedFormElement = updateObject(this.state.orderForm[inputIdentifire], {
+      value: event.target.value,
+      valid: this.checkValidity(event.target.value, this.state.orderForm[inputIdentifire].validation),
+      touched: true,
+    });
 
-    const updatedFormElement = { ...updatedOrderForm[inputIdentifire] };
-    updatedFormElement.value = event.target.value;
-    updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-    updatedFormElement.touched = true;
-    updatedOrderForm[inputIdentifire] = updatedFormElement;
+    const updatedOrderForm = updateObject(this.state.orderForm, { [inputIdentifire]: updatedFormElement });
 
     let formIsValid = true;
     for (let inputIdentifire in updatedOrderForm) {
@@ -202,8 +201,7 @@ const mapStateToProps = (state) => {
     // with this instructors example the order form doesn't work in the same way:
     loading: state.order.loading,
     token: state.auth.token,
-    userId: state.auth.userId
-
+    userId: state.auth.userId,
   };
 };
 
