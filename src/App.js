@@ -4,11 +4,16 @@ import { connect } from "react-redux";
 
 import Layout from "./hoc/Layout/Layout";
 import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
-import Checkout from "./containers/BurgerBuilder/Checkout/Checkout";
+// import Checkout from "./containers/BurgerBuilder/Checkout/Checkout";
+import asyncComponent from "../src/hoc/asyncComponent/asyncComponent";
 import Orders from "./containers/Orders/Orders";
 import Auth from "./containers/Auth/Auth";
 import Logout from "./containers/Auth/Logout/Logout";
 import * as actions from "./store/actions/index";
+
+const AsyncCheckout = asyncComponent(() => {
+  return import("./containers/BurgerBuilder/Checkout/Checkout");
+});
 
 class App extends Component {
   componentDidMount() {
@@ -26,7 +31,7 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/checkout" component={Checkout} />
+          <Route path="/checkout" component={AsyncCheckout} />
           <Route path="/orders" component={Orders} />
           <Route path="/logout" component={Logout} />
           <Route path="/auth" component={Auth} />
