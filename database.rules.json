@@ -1,0 +1,27 @@
+// {
+//   "rules": {
+//     ".read": "now < 1636460815725",  // 2021-11-09
+//     ".write": "now < 1636460815725",  // 2021-11-09
+//   }
+// }
+
+// {
+//   "rules": {
+//     ".read": "auth != null",
+//     ".write": "auth != null"
+//   }
+// }
+
+{
+  "rules": {
+    "ingredients": {
+        ".read": "true",
+    		".write": "true"
+      },
+      "orders": {
+        ".read": "auth != null",
+    		".write": "auth != null",
+          ".indexOn": ["userId"]
+      }
+  }
+}
