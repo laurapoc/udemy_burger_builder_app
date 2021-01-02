@@ -11,7 +11,8 @@ configure({ adapter: new Adapter() });
 describe("<BurgerBuilder />", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<BurgerBuilder onInitIngredients={() => {}} />);
+    // wrapper = shallow(<BurgerBuilder onInitIngredients={() => {}} />);
+    wrapper = shallow(<BurgerBuilder onInitIngredients={() => {}} />, { disableLifecycleMethods: true });
   });
   it("Should render <BuildControls /> when receiving ingredients", () => {
     wrapper.setProps({ ings: { salad: 0 } });

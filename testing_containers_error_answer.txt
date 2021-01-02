@@ -1,0 +1,13 @@
+
+Ed
+10 hours ago
+0
+I got the test to work by...
+
+1. Add export to the BurgerBuilder class definition
+
+export class BurgerBuilder extends Component {
+2. Add an option to the creation of wrapper
+
+wrapper = shallow(<BurgerBuilder onInitIngredients={() => {}}/>, {disableLifecycleMethods:true});
+
