@@ -12,7 +12,7 @@ import * as serviceWorker from "./serviceWorker";
 import burgerBuilderReducer from "./store/reducers/burgerBuilder";
 import orderReducer from "./store/reducers/order";
 import authReducer from "./store/reducers/auth";
-import {watchAuth} from "./store/sagas/index";
+import {watchAuth, watchBurgerBuilder, watchOrder} from "./store/sagas/index";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // const composeEnhancers = process.env.NODE_ENV === "developement" ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
@@ -28,6 +28,8 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, sagaMiddleware)));
 
 sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchBurgerBuilder);
+sagaMiddleware.run(watchOrder);
 
 ReactDOM.render(
   <React.StrictMode>
