@@ -1,40 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Modal from "../../components/UI/Modal/Modal";
 import Aux from "../Auxiliary/Auxiliary";
+import useHttpErrorHandler from "../../hooks/http-error-handler";
 
 const withErrorHandler = (WrappedComponent, axios) => {
   return (props) => {
-    const [error, setEroor] = useState(null);
-
-    // In this case, if using componentDidMount(),
-    // in Orders.js error message does not appears
-
-    const reqInterceptor = axios.interceptors.request.use((req) => {
-      setEroor(null);
-      return req;
-    });
-    const resInterceptor = axios.interceptors.response.use(
-      (res) => res,
-      (err) => {
-        setEroor(err);
-      }
-    );
-
-    useEffect(() => {
-      return () => {
-        axios.interceptors.response.eject(resInterceptor);
-        axios.interceptors.request.eject(reqInterceptor);
-      };
-    }, [reqInterceptor, resInterceptor]);
-
-    const errorConfirmedHandler = () => {
-       setEroor(null);
-    };
+    const [error, clearError] =  useHttpErrorHandler(axios);
 
     return (
       <Aux>
-        <Modal show={error} modalClosed={errorConfirmedHandler}>
+        <Modal show={error} modalClosed={clearError}>
           {error ? error.message : null}
         </Modal>
         <WrappedComponent {...props} />
@@ -42,5 +18,5 @@ const withErrorHandler = (WrappedComponent, axios) => {
     );
   };
 };
-
+// eslint-disable-next-line
 export default withErrorHandler;
